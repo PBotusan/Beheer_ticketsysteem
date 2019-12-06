@@ -1,0 +1,2 @@
+C:\Users\User\Documents\GitHub\TicketSysteemBeheer\TicketSysteemBeheer\obj\Debug\TicketSysteemBeheer.csprojAssemblyReference.cache
+C:\Users\User\Documents\GitHub\TicketSysteemBeheer\TicketSysteemBeheer\obj\Debug\TicketSysteemBeheer.csproj.CoreCompileInputs.cache
