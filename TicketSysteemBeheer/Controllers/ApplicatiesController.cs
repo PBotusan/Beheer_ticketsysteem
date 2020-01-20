@@ -2,7 +2,10 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TicketSysteemBeheer.Config;
@@ -10,7 +13,6 @@ using TicketSysteemBeheer.Models;
 
 namespace TicketSysteemBeheer.Controllers
 {
-
     public class ApplicatiesController : Controller
     {
         /// <summary>
@@ -47,7 +49,6 @@ namespace TicketSysteemBeheer.Controllers
 
         public List<Applicatie> BeheerderApplicaties(string id)
         {
-
             if (string.IsNullOrEmpty(id))
             {
                 id = User.Identity.GetUserId();
@@ -278,4 +279,6 @@ namespace TicketSysteemBeheer.Controllers
             base.Dispose(disposing);
         }
     }
+
 }
+

@@ -1,13 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
-using TicketSysteemBeheer.Models;
 using TicketSysteemBeheer.Config;
+using TicketSysteemBeheer.Models;
 
 namespace TicketSysteemBeheer.Controllers
 {
@@ -62,7 +64,7 @@ namespace TicketSysteemBeheer.Controllers
             if (roles.Contains(RoleNames.Medewerker))
             {
                 selectie = selectie
-                    .Where(t => t.Applicatie.Beheerder.Id == gebruiker.Id && t.Status != TicketStatus.Afgerond);
+                    .Where(t => t.Applicatie.Beheerder.Id == gebruiker.Id && t.Status != TicketStatus.Gesloten);
 
                 var applicaties = db.Applicaties
                     .Where(a => a.Beheerder.Id == gebruiker.Id);
@@ -73,7 +75,7 @@ namespace TicketSysteemBeheer.Controllers
             {
                 selectie = selectie
                     .Where(t => t.Klant.Id == gebruiker.Id
-                                && t.Status != TicketStatus.Afgerond);
+                                && t.Status != TicketStatus.Gesloten);
             }
 
             var tickets = selectie.OrderBy(t => t.Status).ThenBy(t => t.Datum);
@@ -249,7 +251,7 @@ namespace TicketSysteemBeheer.Controllers
                 ticket.Omschrijving = editTicket.Omschrijving;
 
                 if (editTicket.Status == TicketStatus.Nieuw)
-                    editTicket.Status = TicketStatus.Bezet;
+                    editTicket.Status = TicketStatus.InBehandeling;
 
                 ticket.Status = editTicket.Status;
                 db.Entry(ticket).State = EntityState.Modified;
@@ -315,7 +317,7 @@ namespace TicketSysteemBeheer.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
             }
 
-            ticket.Status = TicketStatus.Afgerond;
+            ticket.Status = TicketStatus.Gesloten;
             db.Entry(ticket).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -330,4 +332,5 @@ namespace TicketSysteemBeheer.Controllers
             base.Dispose(disposing);
         }
     }
-}
+
+} 

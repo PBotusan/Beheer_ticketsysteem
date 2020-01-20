@@ -12,6 +12,7 @@ namespace TicketSysteemBeheer.Models
         [Display(Name = "In behandeling")]
         InBehandeling,
         Gesloten
+        
     }
 
     /// <summary>
